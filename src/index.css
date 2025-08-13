@@ -1,68 +1,170 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Montserrat:wght@100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
-  margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
+  background: linear-gradient(#1f2430, #2d3344);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#root {
+  width: 100%;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.container {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  z-index: 1;
+  max-width: 410px;
+  border-radius: 10px;
+  background: #1a1f2d;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: url("clouds.png");
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 25px;
+}
+.search-section .search-form {
+  height: 54px;
+  width: 100%;
+  position: relative;
+}
+
+.search-section .search-form span {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+.search-section .search-input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 6px;
+  padding: 0 20px 0 50px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: 0.1s ease;
+}
+
+.search-section .search-input:focus {
+  border-color: #a38cd9;
+}
+
+.search-section .search-input::placeholder {
+  color: #ddd;
+  text-transform: none;
+}
+
+.search-section .location-button {
+  height: 54px;
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: 0.2s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.search-section .location-button span {
+  font-size: 1.3rem;
+}
+
+.search-section .location-button:hover {
+  color: #b39fdf;
+  border-color: #a38cd9;
+}
+.weather-section :where(h2, p) {
+  color: #fff;
+}
+
+.weather-section .current-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0 50px;
+}
+
+.current-weather .weather-icon {
+  width: 140px;
+  aspect-ratio: 1;
+}
+
+.current-weather .temperature {
+  margin: 18px 0;
+  display: flex;
+  font-size: 3.38rem;
+}
+
+.current-weather .temperature span {
+  font-size: 1.56rem;
+  font-weight: 400;
+  margin: 5px 0 0 2px;
+}
+
+.current-weather .description {
+  font-size: 1.25rem;
+}
+
+.hourly-forecast {
+  padding: 16px 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.hourly-forecast .weather-list {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  list-style: none;
+  padding-bottom: 16px;
+  margin-bottom: -16px;
+  scrollbar-color: transparent transparent;
+}
+
+.hourly-forecast:hover .weather-list {
+  scrollbar-color: #c5bcdb transparent;
+}
+
+.hourly-forecast .weather-item {
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hourly-forecast .weather-item .weather-icon {
+  width: 28px;
+  aspect-ratio: 1;
 }
