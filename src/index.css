@@ -147,14 +147,31 @@ body {
   display: flex;
   gap: 32px;
   overflow-x: auto;
+  overflow-y: hidden;
   list-style: none;
   padding-bottom: 16px;
   margin-bottom: -16px;
+  scrollbar-width: thin; /* Firefox */
   scrollbar-color: transparent transparent;
+  scroll-behavior: smooth;
 }
 
 .hourly-forecast:hover .weather-list {
   scrollbar-color: #c5bcdb transparent;
+}
+
+/* Chrome, Edge, Safari scrollbar styling */
+.hourly-forecast .weather-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+.hourly-forecast .weather-list::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.hourly-forecast:hover .weather-list::-webkit-scrollbar-thumb {
+  background: #c5bcdb;
 }
 
 .hourly-forecast .weather-item {
