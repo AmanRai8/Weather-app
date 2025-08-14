@@ -106,6 +106,10 @@ body {
   color: #b39fdf;
   border-color: #a38cd9;
 }
+.search-section .location-button:active {
+  color: #855bdf;
+  border-color: #a38cd9;
+}
 .weather-section :where(h2, p) {
   color: #fff;
 }

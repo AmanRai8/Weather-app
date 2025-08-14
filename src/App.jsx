@@ -3,6 +3,7 @@ import SearchSection from "./components/SearchSection";
 import CurrentWeather from "./components/CurrentWeather";
 import HourlyWeatherItem from "./components/HourlyWeatherItem";
 import { weatherCodes } from "./constants";
+import GitHubCorner from "./components/GithubCorner";
 
 const App = () => {
   const [currentWeather, setCurrentWeather] = useState({});
@@ -63,24 +64,32 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <SearchSection
-        getWeatherDetails={getWeatherDetails}
-        searchInputRef={searchInputRef}
+    <div>
+      {/* Github corner button */}
+      <GitHubCorner
+        repoUrl="https://github.com/AmanRai8/Weather-app"
+        position="left" // or "right"
       />
 
-      <div className="weather-section">
-        <CurrentWeather currentWeather={currentWeather} />
-        {/* Hourly weather forecast list */}
-        <div className="hourly-forecast">
-          <ul ref={scrollRef} className="weather-list">
-            {hourlyForecasts.map((hourlyWeather) => (
-              <HourlyWeatherItem
-                key={hourlyWeather.time_epoch}
-                hourlyWeather={hourlyWeather}
-              />
-            ))}
-          </ul>
+      <div className="container">
+        <SearchSection
+          getWeatherDetails={getWeatherDetails}
+          searchInputRef={searchInputRef}
+        />
+
+        <div className="weather-section">
+          <CurrentWeather currentWeather={currentWeather} />
+          {/* Hourly weather forecast list */}
+          <div className="hourly-forecast">
+            <ul ref={scrollRef} className="weather-list">
+              {hourlyForecasts.map((hourlyWeather) => (
+                <HourlyWeatherItem
+                  key={hourlyWeather.time_epoch}
+                  hourlyWeather={hourlyWeather}
+                />
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
