@@ -4,10 +4,13 @@ import CurrentWeather from "./components/CurrentWeather";
 import HourlyWeatherItem from "./components/HourlyWeatherItem";
 import { weatherCodes } from "./constants";
 import GitHubCorner from "./components/GithubCorner";
+import NoResultsDiv from "./components/NoResultsDiv";
 
 const App = () => {
+  const API_KEY = import.meta.env.VITE_API_KEY;
   const [currentWeather, setCurrentWeather] = useState({});
   const [hourlyForecasts, setHourlyForecasts] = useState([]);
+  const [hasNoResults, setHasNoResults] = useState(false);
   const searchInputRef = useRef(null);
   const scrollRef = useRef(null);
 
@@ -37,8 +40,11 @@ const App = () => {
 
   // Fetches weather details based on the API URL
   const getWeatherDetails = async (API_URL) => {
+    setHasNoResults(false);
+    window.innerWidth <= 768 && searchInputRef.current.focus();
     try {
       const response = await fetch(API_URL);
+      if (!response.ok) throw new Error();
       const data = await response.json();
 
       // Extract current weather data
@@ -58,10 +64,18 @@ const App = () => {
 
       searchInputRef.current.value = data.location.name;
       filterHourlyForecast(combinedHourlyData);
-    } catch (error) {
-      console.error("Error fetching weather data:", error);
+    } catch {
+      //setting setHasNoResults state if there's an error
+      setHasNoResults(true);
     }
   };
+
+  //default city as tokyo
+  useEffect(() => {
+    const defaultCity = "Tokyo";
+    const API_URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${defaultCity}&days=2`;
+    getWeatherDetails(API_URL);
+  }, []);
 
   return (
     <div>
@@ -76,21 +90,25 @@ const App = () => {
           getWeatherDetails={getWeatherDetails}
           searchInputRef={searchInputRef}
         />
-
-        <div className="weather-section">
-          <CurrentWeather currentWeather={currentWeather} />
-          {/* Hourly weather forecast list */}
-          <div className="hourly-forecast">
-            <ul ref={scrollRef} className="weather-list">
-              {hourlyForecasts.map((hourlyWeather) => (
-                <HourlyWeatherItem
-                  key={hourlyWeather.time_epoch}
-                  hourlyWeather={hourlyWeather}
-                />
-              ))}
-            </ul>
+        {/* conditionally rendering based on hasNoResults state */}
+        {hasNoResults ? (
+          <NoResultsDiv />
+        ) : (
+          <div className="weather-section">
+            <CurrentWeather currentWeather={currentWeather} />
+            {/* Hourly weather forecast list */}
+            <div className="hourly-forecast">
+              <ul ref={scrollRef} className="weather-list">
+                {hourlyForecasts.map((hourlyWeather) => (
+                  <HourlyWeatherItem
+                    key={hourlyWeather.time_epoch}
+                    hourlyWeather={hourlyWeather}
+                  />
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
