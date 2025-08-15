@@ -3,7 +3,7 @@ import SearchSection from "./components/SearchSection";
 import CurrentWeather from "./components/CurrentWeather";
 import HourlyWeatherItem from "./components/HourlyWeatherItem";
 import { weatherCodes } from "./constants";
-import GitHubCorner from "./components/GithubCorner";
+import GitHubCorner from "./components/GitHubCorner";
 import NoResultsDiv from "./components/NoResultsDiv";
 
 const App = () => {
