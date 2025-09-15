@@ -25,8 +25,7 @@ Enter a city name and instantly see the current temperature, weather condition, 
 
 ## 📷 Preview
 
-![Weather App Screenshot](screenshot.png)  
-_(Add your screenshot in the project root and name it `screenshot.png`)_
+![Weather App Screenshot](./public/ss.png)
 
 ---
 
